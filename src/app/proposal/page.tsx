@@ -54,7 +54,7 @@ const timeline = [
   { week: "Days 4–5", phase: "Build", deliverable: "Site built, content placed, mobile + tablet checked" },
   { week: "Day 6", phase: "QA & polish", deliverable: "Cross-browser checks, performance pass, SEO basics in place" },
   { week: "Day 7", phase: "Launch 🚀", deliverable: "Site goes live, you get the keys, walkthrough call done" },
-  { week: "Week 2+", phase: "AI features layered in", deliverable: "Optional — Quote Estimator, Chatbot, etc. added live (Growth & Premium tiers)" },
+  { week: "Week 2+", phase: "AI features layered in", deliverable: "Optional — Quote Estimator, Material Calculator, or Project Visualiser added live (Growth & Premium tiers)" },
 ];
 
 type Cell = boolean | string;
