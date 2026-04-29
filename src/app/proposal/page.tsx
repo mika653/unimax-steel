@@ -4,11 +4,7 @@ import {
   ArrowLeft,
   ArrowUpRight,
   Calculator,
-  Sparkles,
-  MessageSquare,
   Eye,
-  Languages,
-  Search,
   Calendar,
   CheckCircle2,
   Check,
@@ -31,40 +27,16 @@ const aiFeatures = [
     impact: "Captures intent before they leave the site. Filters serious buyers from window-shoppers.",
   },
   {
-    icon: <Sparkles size={20} />,
-    name: "AI Product Advisor",
-    summary: "Conversational helper that recommends roofing or decking products based on the buyer's project description.",
-    impact: "Acts like a 24/7 sales engineer. Especially powerful for first-time buyers unsure what they need.",
-  },
-  {
-    icon: <MessageSquare size={20} />,
-    name: "Bilingual AI Chatbot",
-    summary: "Answers technical questions, lead times, and delivery in both English and Tagalog, then hands off to your team.",
-    impact: "Reduces inbound calls for routine questions. Keeps prospects engaged after-hours.",
+    icon: <Layers size={20} />,
+    name: "AI Material Calculator",
+    summary: "Calculates required quantities (sheets, fasteners, accessories) from area dimensions — outputs a structured bill of materials.",
+    impact: "Buyers come to you with quantities already estimated. Faster sales cycles, fewer rework quotes.",
   },
   {
     icon: <Eye size={20} />,
     name: "AI Project Visualiser",
-    summary: "Buyer uploads a photo of their building or site; the system shows what each Unimax product would look like applied.",
+    summary: "Visitors browse Unimax products applied to template photos and instantly preview different colour and profile combinations.",
     impact: "Removes the biggest hesitation in roofing buys — uncertainty about look-and-feel.",
-  },
-  {
-    icon: <Search size={20} />,
-    name: "Smart Search",
-    summary: "Natural-language search like &ldquo;hi-rib for warehouse 5000 sqm in Pampanga&rdquo; — surfaces the right product, spec sheet, and CTA.",
-    impact: "Cuts the path from search to inquiry from many clicks to one.",
-  },
-  {
-    icon: <Layers size={20} />,
-    name: "AI Material Calculator",
-    summary: "Calculates required quantities (sheets, fasteners, accessories) from area dimensions — outputs a structured BoM.",
-    impact: "Buyers come to you with quantities already estimated. Faster sales cycles, fewer rework quotes.",
-  },
-  {
-    icon: <Languages size={20} />,
-    name: "Auto-Translated Pages",
-    summary: "Tagalog, Cebuano, and Ilocano versions generated and kept in sync automatically as content updates.",
-    impact: "Opens regional buyer markets without ongoing translation cost.",
   },
 ];
 
@@ -152,7 +124,7 @@ const tiers = [
     bullets: [
       "Everything in Foundation, plus:",
       "Up to 8 pages with light custom polish",
-      "1 AI integration of your choice — Quote Estimator OR 24/7 Chatbot",
+      "1 AI feature of your choice — Quote Estimator, Material Calculator, or Project Visualiser",
       "Simple CMS so your team can edit content",
       "14-day post-launch support",
       "2 rounds of revisions",
@@ -169,7 +141,7 @@ const tiers = [
     bullets: [
       "Everything in Growth, plus:",
       "Up to 10 pages with custom design system",
-      "2 AI integrations of your choice (from Estimator, Chatbot, Product Advisor)",
+      "2 AI features of your choice (from Quote Estimator, Material Calculator, Project Visualiser)",
       "Bilingual scaffolding (English + Tagalog ready)",
       "Project case study template",
       "30-day post-launch support",
@@ -271,10 +243,10 @@ export default function ProposalPage() {
         <div className="max-w-5xl mx-auto px-6 py-16 sm:py-20">
           <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#EA580C] mb-3">02 &mdash; AI Integrations</div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
-            Seven AI features designed for the steel buyer.
+            Three AI features designed for the steel buyer.
           </h2>
           <p className="text-neutral-600 text-lg max-w-3xl mb-10 leading-relaxed">
-            Each one solves a real friction point in the buying journey. <strong className="text-neutral-900">Growth</strong> ships with 1 feature; <strong className="text-neutral-900">Premium</strong> ships with 2. Extra features can be layered in any time after launch as we learn what your buyers respond to.
+            Each one solves a real friction point in the buying journey — and each runs on built-in logic, so there are no ongoing API costs. <strong className="text-neutral-900">Growth</strong> ships with 1 feature of your choice; <strong className="text-neutral-900">Premium</strong> ships with 2.
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             {aiFeatures.map((f) => (
@@ -489,9 +461,6 @@ export default function ProposalPage() {
           </div>
         </div>
 
-        <div className="mt-10 text-sm text-neutral-500 leading-relaxed max-w-3xl">
-          <span className="font-semibold text-neutral-700">Notes:</span> Prices are one-time and exclude VAT. AI feature API usage (OpenAI / Claude) billed at-cost — typically ₱300–₱1,500/month depending on traffic. Domain &amp; hosting included for the first year. Optional retainer (₱2K–₱5K / month) covers content updates, performance tuning, and minor changes.
-        </div>
       </section>
 
       {/* Concepts CTA */}
