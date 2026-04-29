@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────
+   UNIMAX STEEL — PITCH DESIGN TOKENS
+   Tailwind v4 @theme inline
+   ───────────────────────────────────────────── */
+
+:root {
+  /* Brand palette anchored on the existing Unimax orange + steel neutrals */
+  --unimax-orange:    #EA580C;
+  --unimax-orange-2:  #F97316;
+  --unimax-amber:     #F59E0B;
+  --unimax-deep:      #7C2D12;
+  --unimax-steel:     #1E293B;
+  --unimax-graphite:  #0F172A;
+
+  /* Steel grey neutrals (cool-tinted) */
+  --neutral-50:  #F8FAFC;
+  --neutral-100: #F1F5F9;
+  --neutral-200: #E2E8F0;
+  --neutral-300: #CBD5E1;
+  --neutral-400: #94A3B8;
+  --neutral-500: #64748B;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1E293B;
+  --neutral-900: #0F172A;
+
+  /* Semantic */
+  --background: #FFFFFF;
+  --foreground: #0F172A;
+  --surface:    #F8FAFC;
+  --border:     #E2E8F0;
+}
+
+@theme inline {
+  --color-unimax-orange:    var(--unimax-orange);
+  --color-unimax-orange-2:  var(--unimax-orange-2);
+  --color-unimax-amber:     var(--unimax-amber);
+  --color-unimax-deep:      var(--unimax-deep);
+  --color-unimax-steel:     var(--unimax-steel);
+  --color-unimax-graphite:  var(--unimax-graphite);
+
+  --color-neutral-50:  var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface:    var(--surface);
+  --color-border:     var(--border);
+
+  --font-sans:    var(--font-inter);
+  --font-display: var(--font-space-grotesk);
+  --font-mono:    var(--font-geist-mono);
+}
+
+/* ─────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 2px solid var(--unimax-orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+nav ul, nav ol { list-style: none; margin: 0; padding: 0; }
+
+img, video { max-width: 100%; height: auto; display: block; }
+
+::selection { background-color: var(--unimax-orange); color: #fff; }
+
+/* Hide scrollbar in iframe-embedded preview pages while keeping scroll */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
