@@ -88,12 +88,21 @@ const comparison: CompareGroup[] = [
     ],
   },
   {
+    group: "Monthly retainer",
+    rows: [
+      { label: "Monthly fee", foundation: "—", growth: "₱1,500/mo", premium: "₱3,000/mo" },
+      { label: "Product / page updates per month", foundation: false, growth: "2", premium: "4" },
+      { label: "Monthly performance check + insights", foundation: false, growth: false, premium: true },
+      { label: "Priority support (same-day response)", foundation: false, growth: false, premium: true },
+      { label: "Lock-in commitment", foundation: "None", growth: "Month-to-month", premium: "Month-to-month" },
+    ],
+  },
+  {
     group: "Tech & support",
     rows: [
       { label: "Vercel hosting (year 1 included)", foundation: true, growth: true, premium: true },
       { label: "Basic SEO + Google Analytics", foundation: true, growth: true, premium: true },
       { label: "Revision rounds", foundation: "1", growth: "2", premium: "2" },
-      { label: "Post-launch support", foundation: false, growth: "14 days", premium: "30 days" },
     ],
   },
 ];
@@ -101,9 +110,10 @@ const comparison: CompareGroup[] = [
 const tiers = [
   {
     name: "Foundation",
-    tagline: "Live in 7 days · clean rebuild",
+    tagline: "Best for steel suppliers who just need a polished online presence.",
     price: "₱8,000",
-    range: "7 days · one-time",
+    monthly: null,
+    pillNote: "One-Time Payment",
     bullets: [
       "Mobile-first site (4–5 pages: Home, About, Products, Contact)",
       "Branded layout using your existing logo + colours",
@@ -112,41 +122,49 @@ const tiers = [
       "Vercel hosting (fast, free, reliable)",
       "1 round of revisions",
     ],
-    note: "No AI included — available as Phase 2 add-on.",
+    bottomStrip: "No monthly fees. No lock-in.",
+    bottomStripVariant: "neutral" as const,
     accent: "#94A3B8",
     highlight: false,
   },
   {
     name: "Growth",
-    tagline: "Recommended · 7 days + 1 AI feature",
-    price: "₱10,000",
-    range: "7 days + AI in week 2",
+    tagline: "Best for businesses that want consistency without big upfront cost.",
+    price: "₱7,000",
+    monthly: "₱1,500",
+    pillNote: "Initial + Monthly Retainer",
     bullets: [
       "Everything in Foundation, plus:",
       "Up to 8 pages with light custom polish",
       "1 AI feature of your choice — Quote Estimator, Material Calculator, or Project Visualiser",
       "Simple CMS so your team can edit content",
-      "14-day post-launch support",
+      "Google Maps + analytics tracking",
+      "2 product / page updates per month (prices, stock, new profiles)",
       "2 rounds of revisions",
     ],
-    note: null,
+    bottomStrip: "Includes 2 product updates / month.",
+    bottomStripVariant: "primary" as const,
     accent: "#EA580C",
     highlight: true,
   },
   {
     name: "Premium",
-    tagline: "Most complete · 7 days + 2 AI features",
-    price: "₱12,000",
-    range: "7 days + 2 weeks polish",
+    tagline: "Best for businesses that want to stay active, updated, and competitive.",
+    price: "₱6,000",
+    monthly: "₱3,000",
+    pillNote: "Initial + Monthly Retainer",
     bullets: [
       "Everything in Growth, plus:",
       "Up to 10 pages with custom design system",
       "2 AI features of your choice (from Quote Estimator, Material Calculator, Project Visualiser)",
       "Bilingual scaffolding (English + Tagalog ready)",
       "Project case study template",
-      "30-day post-launch support",
+      "4 product / page updates per month",
+      "Monthly performance check + insights",
+      "Priority support (same-day response)",
     ],
-    note: null,
+    bottomStrip: "Priority support + monthly insights.",
+    bottomStripVariant: "primary" as const,
     accent: "#0F172A",
     highlight: false,
   },
@@ -186,7 +204,7 @@ export default function ProposalPage() {
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-4 pt-8 border-t border-white/10 text-sm">
             <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Delivery</div><div className="font-semibold text-white">Live in 7 days</div></div>
-            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Investment</div><div className="font-semibold text-white">From ₱8,000</div></div>
+            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Investment</div><div className="font-semibold text-white">From ₱6,000 + retainer</div></div>
             <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">AI features</div><div className="font-semibold text-white">Up to 2</div></div>
             <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Validity</div><div className="font-semibold text-white">90 days</div></div>
           </div>
@@ -318,52 +336,64 @@ export default function ProposalPage() {
         <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#EA580C] mb-3">05 &mdash; Investment</div>
         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>Three ways to start</h2>
         <p className="text-neutral-600 text-lg max-w-3xl mb-10 leading-relaxed">
-          Every tier ships in 7 days. They differ on design depth, page count, AI features, and how long we stick around after launch. Start small or go all-in — you can always layer up later.
+          Every tier ships in 7 days. Foundation is a clean one-time build. Growth and Premium pair a smaller upfront with a monthly retainer that keeps your site fresh — product updates, performance insights, and ongoing support handled by us, month after month.
         </p>
         <div className="grid lg:grid-cols-3 gap-5">
           {tiers.map((t) => (
             <div
               key={t.name}
-              className={`relative rounded-2xl border p-6 sm:p-7 flex flex-col ${
+              className={`relative rounded-2xl border flex flex-col overflow-hidden ${
                 t.highlight ? "border-[#EA580C] shadow-xl shadow-[#EA580C]/10 bg-white" : "border-neutral-200 bg-white"
               }`}
             >
               {t.highlight && (
-                <div className="absolute -top-3 left-6 bg-[#EA580C] text-white text-[10px] font-bold uppercase tracking-[0.18em] px-3 py-1 rounded-full">
+                <div className="absolute -top-3 left-6 bg-[#EA580C] text-white text-[10px] font-bold uppercase tracking-[0.18em] px-3 py-1 rounded-full z-10">
                   Recommended
                 </div>
               )}
-              <div className="mb-5">
-                <div className="font-bold text-neutral-900 text-2xl mb-1" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>{t.name}</div>
-                <div className="text-sm text-neutral-500">{t.tagline}</div>
-              </div>
-              <div className="mb-5 pb-5 border-b border-neutral-200">
-                <div className="text-3xl font-bold text-neutral-900 mb-1" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>{t.price}</div>
-                <div className="text-xs text-neutral-500 uppercase tracking-wider">{t.range}</div>
-              </div>
-              <ul className="space-y-2.5 flex-1 mb-4">
-                {t.bullets.map((b) => (
-                  <li key={b} className="flex gap-2.5 text-sm text-neutral-700 leading-relaxed">
-                    <CheckCircle2 size={16} className="text-[#EA580C] shrink-0 mt-0.5" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-              {t.note && (
-                <div className="mb-5 px-3 py-2.5 rounded-lg bg-neutral-50 border border-neutral-200 text-xs text-neutral-600 italic leading-relaxed">
-                  {t.note}
+              <div className="p-6 sm:p-7 flex flex-col flex-1">
+                <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-500 mb-4">{t.name}</div>
+                <div className="mb-5 pb-5 border-b border-neutral-200">
+                  <div className="flex items-baseline gap-1 mb-1">
+                    <span className="text-4xl font-bold text-neutral-900" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>{t.price}</span>
+                  </div>
+                  {t.monthly && (
+                    <div className="mb-2">
+                      <span className={`text-sm font-semibold ${t.highlight ? "text-[#EA580C]" : "text-neutral-700"}`}>+ {t.monthly}</span>
+                      <span className={`text-xs font-normal ${t.highlight ? "text-[#EA580C]/70" : "text-neutral-500"}`}>/month</span>
+                    </div>
+                  )}
+                  <div className="text-[11px] text-neutral-500 uppercase tracking-[0.12em]">{t.pillNote}</div>
                 </div>
-              )}
-              <a
-                href={`mailto:hello@fishbonecreative.com?subject=Unimax%20Steel%20%E2%80%94%20${encodeURIComponent(t.name)}%20tier`}
-                className={`inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold transition-colors ${
-                  t.highlight
-                    ? "bg-[#EA580C] hover:bg-[#C2410C] text-white"
-                    : "border border-neutral-300 hover:border-neutral-900 text-neutral-700 hover:text-neutral-900"
+                <p className="text-sm text-neutral-600 leading-relaxed mb-6">{t.tagline}</p>
+                <ul className="space-y-2.5 flex-1 mb-6">
+                  {t.bullets.map((b) => (
+                    <li key={b} className="flex gap-2.5 text-sm text-neutral-700 leading-relaxed">
+                      <CheckCircle2 size={16} className="text-[#EA580C] shrink-0 mt-0.5" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={`mailto:hello@fishbonecreative.com?subject=Unimax%20Steel%20%E2%80%94%20${encodeURIComponent(t.name)}%20tier`}
+                  className={`inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold transition-colors ${
+                    t.highlight
+                      ? "bg-[#EA580C] hover:bg-[#C2410C] text-white"
+                      : "border border-neutral-300 hover:border-neutral-900 text-neutral-700 hover:text-neutral-900"
+                  }`}
+                >
+                  Start with {t.name} <ArrowUpRight size={15} />
+                </a>
+              </div>
+              <div
+                className={`px-6 py-4 border-t ${
+                  t.bottomStripVariant === "primary"
+                    ? "bg-[#EA580C]/8 border-[#EA580C]/20 text-[#9A3412]"
+                    : "bg-neutral-50 border-neutral-200 text-neutral-500 italic"
                 }`}
               >
-                Start with {t.name} <ArrowUpRight size={15} />
-              </a>
+                <p className="text-xs font-semibold leading-relaxed">{t.bottomStrip}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -381,9 +411,9 @@ export default function ProposalPage() {
               <div className="grid grid-cols-[minmax(180px,1.4fr)_1fr_1fr_1fr] bg-neutral-50 border-b border-neutral-200">
                 <div className="p-4 sm:p-5"></div>
                 {[
-                  { name: "Foundation", price: "₱8,000", highlight: false },
-                  { name: "Growth", price: "₱10,000", highlight: true },
-                  { name: "Premium", price: "₱12,000", highlight: false },
+                  { name: "Foundation", price: "₱8,000", monthly: null, highlight: false },
+                  { name: "Growth", price: "₱7,000", monthly: "+ ₱1,500/mo", highlight: true },
+                  { name: "Premium", price: "₱6,000", monthly: "+ ₱3,000/mo", highlight: false },
                 ].map((t) => (
                   <div
                     key={t.name}
@@ -396,6 +426,9 @@ export default function ProposalPage() {
                     )}
                     <div className={`text-sm font-bold ${t.highlight ? "text-[#EA580C]" : "text-neutral-900"}`} style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>{t.name}</div>
                     <div className={`text-xs mt-1 ${t.highlight ? "text-[#9A3412]" : "text-neutral-500"}`}>{t.price}</div>
+                    {t.monthly && (
+                      <div className={`text-[10px] mt-0.5 ${t.highlight ? "text-[#9A3412]" : "text-neutral-400"}`}>{t.monthly}</div>
+                    )}
                   </div>
                 ))}
               </div>
