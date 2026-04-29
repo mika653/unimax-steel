@@ -6,14 +6,15 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  Eye,
   Upload,
   Sparkles,
-  MessageCircle,
   Phone,
   Mail,
   MapPin,
   Quote,
+  Clock,
+  ShieldCheck,
+  HeartHandshake,
 } from "lucide-react";
 
 const products = [
@@ -240,42 +241,45 @@ export default function Concept3() {
         </div>
       </section>
 
-      {/* Bilingual chatbot teaser */}
+      {/* Values — Why Unimax */}
       <section className="border-b border-orange-200/40">
-        <div className="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-12 gap-10 items-center">
-          <div className="md:col-span-7">
-            <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#EA580C] mb-3 flex items-center gap-2">
-              <MessageCircle size={13} /> Bilingual AI Assistant
-            </div>
-            <h2 className="text-5xl font-bold tracking-tight leading-[1.05] mb-6" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
-              Mag-tanong ka sa wika mong<br />
-              <em className="italic font-light text-[#7C2D12]">komportable.</em>
-            </h2>
-            <p className="text-lg text-[#5B4631] leading-relaxed max-w-xl">
-              Ask in English. Or in Tagalog. Or switch mid-sentence — our AI assistant understands both. It answers questions about lead times, profiles, gauges, and delivery 24/7, then connects you to a real engineer when you&rsquo;re ready.
-            </p>
-          </div>
-          <div className="md:col-span-5">
-            <div className="bg-white rounded-2xl border border-orange-200/60 p-5 shadow-lg space-y-3">
-              <div className="flex gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#F59E0B] to-[#EA580C] shrink-0" />
-                <div className="bg-orange-50 px-3.5 py-2.5 rounded-2xl rounded-bl-sm text-sm leading-relaxed">
-                  Kumusta! Ano po ang proyekto ninyo?
+        <div className="max-w-6xl mx-auto px-6 py-24">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#EA580C] mb-3">Why Unimax · Bakit Unimax</div>
+          <h2 className="text-5xl font-bold tracking-tight leading-[1.05] mb-12 max-w-3xl" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
+            Three promises<br />
+            <em className="italic font-light text-[#7C2D12]">we&rsquo;ve always kept.</em>
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              {
+                icon: <Clock size={22} />,
+                tl: "Bilis ng Delivery",
+                en: "Speed of Delivery",
+                body: "Same-week delivery across Luzon from our QC, Pampanga, and Pangasinan locations. Same-day callbacks on every inquiry, no exceptions.",
+              },
+              {
+                icon: <ShieldCheck size={22} />,
+                tl: "Tatak Pilipino",
+                en: "Filipino-Made Quality",
+                body: "Pre-painted Philippine steel, PNS-certified gauges, 10-year warranty on every sheet. Built to last through every storm season.",
+              },
+              {
+                icon: <HeartHandshake size={22} />,
+                tl: "Pang-Henerasyon",
+                en: "Built for Generations",
+                body: "Eight years, 500+ projects, three locations. Roofs we delivered in 2017 are still standing strong — and that&rsquo;s the standard we keep raising.",
+              },
+            ].map((v) => (
+              <article key={v.en} className="bg-white rounded-2xl border border-orange-200/40 p-7 hover:border-[#EA580C] transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#EA580C] text-white flex items-center justify-center mb-5">
+                  {v.icon}
                 </div>
-              </div>
-              <div className="flex gap-2.5 flex-row-reverse">
-                <div className="w-8 h-8 rounded-full bg-[#1F1410] shrink-0" />
-                <div className="bg-[#1F1410] text-white px-3.5 py-2.5 rounded-2xl rounded-br-sm text-sm leading-relaxed">
-                  Magkano per sheet ng Hi Rib for 800 sqm warehouse?
-                </div>
-              </div>
-              <div className="flex gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#F59E0B] to-[#EA580C] shrink-0" />
-                <div className="bg-orange-50 px-3.5 py-2.5 rounded-2xl rounded-bl-sm text-sm leading-relaxed">
-                  Para sa 800 sqm, mga 220–260 sheets po ang kailangan. Halagang ₱228,000–₱285,000 (with delivery sa Luzon). Gusto niyo bang i-connect ko kayo sa sales team?
-                </div>
-              </div>
-            </div>
+                <div className="text-xs uppercase tracking-[0.16em] text-[#EA580C]/80 font-bold mb-2">{v.en}</div>
+                <div className="text-2xl font-bold mb-3" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>{v.tl}</div>
+                <p className="text-sm text-[#5B4631] leading-relaxed">{v.body}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>

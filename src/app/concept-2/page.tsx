@@ -1,19 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
+import { useState, useMemo } from "react";
 import {
   ArrowLeft,
   ArrowUpRight,
   ArrowRight,
   Sparkles,
   Search,
-  Send,
-  Bot,
-  User,
+  Calculator,
   CheckCircle2,
   Phone,
   Mail,
+  Layers,
+  Wrench,
 } from "lucide-react";
 
 const products = [
@@ -25,56 +25,30 @@ const products = [
   { name: "Spandrel Ceiling", desc: "Plain, groove, and rib ceilings.", category: "Finish" },
 ];
 
-type Msg = { role: "user" | "ai"; text: string; products?: string[] };
-
-const SAMPLE_PROMPTS = [
-  "I'm building a 3,000 sqm warehouse in Pampanga. What roofing should I use?",
-  "What's the difference between Hi Rib and Sierra Tile?",
-  "How fast can you deliver to Cebu?",
-];
-
-const SAMPLE_REPLIES: Record<number, Msg> = {
-  0: {
-    role: "ai",
-    text: "For a 3,000 sqm warehouse, I'd lead with Maxi Hi Rib in 0.50mm gauge — wide spans cut purlin count and Pampanga is well within our same-day delivery range. C-Purlins (1.6mm) typically pair well at that span. Want me to draft a starting BoM?",
-    products: ["Hi Rib Roofing", "C-Purlins"],
-  },
-  1: {
-    role: "ai",
-    text: "Hi Rib is a high-rib trapezoidal profile — strongest pick for industrial spans, fastest install. Sierra Tile is a residential / hospitality look, mimicking clay tile while keeping steel's durability. If aesthetics matter most, go Sierra. If span and speed matter most, go Hi Rib.",
-    products: ["Hi Rib Roofing", "Sierra Tile"],
-  },
-  2: {
-    role: "ai",
-    text: "Cebu is a 5–7 day window from our Pampanga warehouse with our partner logistics. For volumes over 1,000 sqm we can prioritize and shave that to 4 days. I can connect you to our Visayas account manager — want me to send your details?",
-    products: [],
-  },
+// Material rates per sheet / per metre — drives the deterministic calculator
+const MATERIAL_RATES: Record<string, { coverage: number; pricePerSheet: number; weight: number }> = {
+  "Hi Rib Roofing":   { coverage: 1.0, pricePerSheet: 285, weight: 6.2 },
+  "Sierra Tile":      { coverage: 0.92, pricePerSheet: 380, weight: 7.1 },
+  "Webdeck":          { coverage: 0.9, pricePerSheet: 540, weight: 11.4 },
+  "Insulated Panels": { coverage: 1.0, pricePerSheet: 1450, weight: 9.8 },
 };
 
 export default function Concept2() {
-  const [messages, setMessages] = useState<Msg[]>([
-    { role: "ai", text: "Hi, I'm Maya — your Unimax product advisor. Tell me about your project and I'll suggest the best products. Or pick a starter question below." },
-  ]);
-  const [thinking, setThinking] = useState(false);
-  const [input, setInput] = useState("");
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const [profile, setProfile] = useState<keyof typeof MATERIAL_RATES>("Hi Rib Roofing");
+  const [length, setLength] = useState(40);
+  const [width, setWidth] = useState(20);
 
-  useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, thinking]);
-
-  function ask(prompt: string, replyIdx?: number) {
-    setMessages((m) => [...m, { role: "user", text: prompt }]);
-    setInput("");
-    setThinking(true);
-    setTimeout(() => {
-      const reply: Msg = replyIdx !== undefined && SAMPLE_REPLIES[replyIdx]
-        ? SAMPLE_REPLIES[replyIdx]
-        : { role: "ai", text: "Got it — for projects like that we'd typically recommend Hi Rib roofing with matching C-Purlins. Want a quick estimate?", products: ["Hi Rib Roofing", "C-Purlins"] };
-      setMessages((m) => [...m, reply]);
-      setThinking(false);
-    }, 1100);
-  }
+  const result = useMemo(() => {
+    const area = length * width;
+    const rate = MATERIAL_RATES[profile];
+    const sheets = Math.ceil(area / rate.coverage);
+    const fasteners = Math.ceil(sheets * 8); // ~8 fasteners per sheet
+    const totalWeight = +(sheets * rate.weight).toFixed(1);
+    const sheetSubtotal = sheets * rate.pricePerSheet;
+    const fastenerCost = fasteners * 4;
+    const total = sheetSubtotal + fastenerCost;
+    return { area, sheets, fasteners, totalWeight, sheetSubtotal, fastenerCost, total };
+  }, [profile, length, width]);
 
   return (
     <main className="bg-white text-[#0F172A]" style={{ fontFamily: "var(--font-inter, sans-serif)" }}>
@@ -91,7 +65,7 @@ export default function Concept2() {
           </Link>
           <nav className="hidden md:flex items-center gap-7 text-sm text-neutral-600">
             <a href="#products" className="hover:text-[#0F172A]">Products</a>
-            <a href="#advisor" className="hover:text-[#0F172A]">AI Advisor</a>
+            <a href="#calculator" className="hover:text-[#0F172A]">Calculator</a>
             <a href="#projects" className="hover:text-[#0F172A]">Projects</a>
             <a href="#contact" className="hover:text-[#0F172A]">Contact</a>
           </nav>
@@ -105,18 +79,18 @@ export default function Concept2() {
       <section className="border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 pt-24 pb-20 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100 text-neutral-600 text-xs font-medium mb-7">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0EA5E9]" /> New · AI product advisor live
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0EA5E9]" /> New · Material calculator live
           </div>
           <h1 className="text-5xl sm:text-7xl lg:text-[88px] font-bold tracking-tight leading-[1.0] mb-7 max-w-4xl mx-auto" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
             Steel, simply<br />
             <span className="text-neutral-400">specified.</span>
           </h1>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed mb-9">
-            Tell our AI advisor what you&rsquo;re building. Get the right product, gauge, and quantity — all without a phone call.
+            Type your project dimensions. Get the exact bill of materials — sheets, fasteners, weight, total — without a phone call.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <a href="#advisor" className="inline-flex items-center gap-2 bg-[#0F172A] hover:bg-[#0EA5E9] transition-colors text-white px-6 py-3.5 rounded-full text-sm font-semibold">
-              Ask the advisor <ArrowRight size={16} />
+            <a href="#calculator" className="inline-flex items-center gap-2 bg-[#0F172A] hover:bg-[#0EA5E9] transition-colors text-white px-6 py-3.5 rounded-full text-sm font-semibold">
+              Try the calculator <ArrowRight size={16} />
             </a>
             <a href="#products" className="inline-flex items-center gap-2 text-neutral-700 hover:text-neutral-900 px-5 py-3.5 text-sm font-semibold">
               Or browse products
@@ -127,14 +101,14 @@ export default function Concept2() {
           <div className="mt-16 max-w-xl mx-auto relative">
             <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-neutral-400" />
             <input
-              placeholder="Try: 'corrugated roofing for 800 sqm carport'"
+              placeholder="Search products: 'Hi Rib', 'C-Purlins', 'Sierra Tile'…"
               className="w-full pl-12 pr-32 py-4 rounded-full border border-neutral-200 hover:border-neutral-300 focus:border-[#0EA5E9] focus:outline-none text-sm bg-white shadow-sm"
             />
             <span className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-[#0F172A] text-white text-xs font-semibold rounded-full">
-              Smart search
+              Search
             </span>
           </div>
-          <p className="text-xs text-neutral-400 mt-3">Natural language. Type the way you think.</p>
+          <p className="text-xs text-neutral-400 mt-3">Find specs, gauges, and stock by name or category.</p>
         </div>
       </section>
 
@@ -167,25 +141,25 @@ export default function Concept2() {
         </div>
       </section>
 
-      {/* AI Advisor */}
-      <section id="advisor" className="bg-neutral-50 border-b border-neutral-100">
+      {/* AI Material Calculator */}
+      <section id="calculator" className="bg-neutral-50 border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-12 gap-10">
           <div className="md:col-span-5">
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0EA5E9] mb-3 flex items-center gap-2">
-              <Sparkles size={13} /> AI Product Advisor
+              <Sparkles size={13} /> AI Material Calculator
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-5 leading-[1.05]" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
-              Like having a sales engineer<br />on speed-dial.
+              Bill of materials,<br />in one breath.
             </h2>
             <p className="text-neutral-600 text-lg leading-relaxed mb-7">
-              Maya understands your project and recommends the right products, gauges, and quantities. She speaks both English and Tagalog, and hands you off to the team the moment you&rsquo;re ready to talk numbers.
+              Enter your length and width — the calculator returns the exact number of sheets, the fastener count, the total weight, and a starting cost. Your contractor walks into the call already prepared.
             </p>
             <ul className="space-y-3 mb-7">
               {[
-                "Trained on Unimax product specs and stock levels",
-                "Suggests product + gauge + accessories together",
-                "Drafts an estimate, then connects you to a human",
-                "Bilingual — English &amp; Tagalog",
+                "Built-in coverage tables for every Unimax profile",
+                "Outputs sheet count + fasteners + total weight",
+                "Email the BoM to yourself or your contractor",
+                "No ongoing AI subscription — runs natively in the browser",
               ].map((b) => (
                 <li key={b} className="flex items-start gap-2.5">
                   <CheckCircle2 size={18} className="text-[#0EA5E9] mt-0.5 shrink-0" />
@@ -195,76 +169,104 @@ export default function Concept2() {
             </ul>
           </div>
 
-          {/* Chat widget */}
+          {/* Calculator widget */}
           <div className="md:col-span-7">
-            <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden flex flex-col h-[560px]">
+            <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
               <div className="px-5 py-4 border-b border-neutral-100 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#0EA5E9] to-[#0F172A] flex items-center justify-center"><Bot size={16} className="text-white" /></div>
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#0EA5E9] to-[#0F172A] flex items-center justify-center">
+                  <Calculator size={16} className="text-white" />
+                </div>
                 <div>
-                  <div className="font-bold text-sm" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>Maya</div>
-                  <div className="text-[11px] text-neutral-500 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Online · usually replies in seconds</div>
+                  <div className="font-bold text-sm" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>Material Calculator</div>
+                  <div className="text-[11px] text-neutral-500 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Live · updates as you type
+                  </div>
                 </div>
               </div>
-              <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-5 space-y-4 bg-neutral-50/50">
-                {messages.map((m, i) => (
-                  <div key={i} className={`flex gap-3 ${m.role === "user" ? "flex-row-reverse" : ""}`}>
-                    <div className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-white ${m.role === "ai" ? "bg-gradient-to-br from-[#0EA5E9] to-[#0F172A]" : "bg-neutral-700"}`}>
-                      {m.role === "ai" ? <Bot size={13} /> : <User size={13} />}
-                    </div>
-                    <div className={`max-w-[80%] ${m.role === "user" ? "items-end" : "items-start"} flex flex-col gap-2`}>
-                      <div className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${m.role === "user" ? "bg-[#0F172A] text-white rounded-br-sm" : "bg-white border border-neutral-200 rounded-bl-sm"}`}>
-                        {m.text}
-                      </div>
-                      {m.products && m.products.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                          {m.products.map((p) => (
-                            <span key={p} className="text-[11px] font-semibold bg-[#0EA5E9]/10 text-[#0369A1] px-2.5 py-1 rounded-full">{p}</span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                {thinking && (
-                  <div className="flex gap-3">
-                    <div className="shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-[#0EA5E9] to-[#0F172A] flex items-center justify-center"><Bot size={13} className="text-white" /></div>
-                    <div className="bg-white border border-neutral-200 px-4 py-3 rounded-2xl rounded-bl-sm flex gap-1">
-                      <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" />
-                      <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "0.15s" }} />
-                      <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "0.3s" }} />
-                    </div>
-                  </div>
-                )}
-              </div>
 
-              {messages.length <= 1 && (
-                <div className="px-5 py-3 border-t border-neutral-100 bg-white flex flex-wrap gap-2">
-                  {SAMPLE_PROMPTS.map((p, i) => (
-                    <button
-                      key={p}
-                      onClick={() => ask(p, i)}
-                      className="text-xs text-neutral-700 bg-neutral-100 hover:bg-[#0EA5E9]/10 hover:text-[#0369A1] px-3 py-1.5 rounded-full transition-colors"
-                    >
-                      {p}
-                    </button>
-                  ))}
+              <div className="p-5 space-y-5">
+                {/* Profile */}
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2 block">Profile</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {(Object.keys(MATERIAL_RATES) as Array<keyof typeof MATERIAL_RATES>).map((p) => (
+                      <button
+                        key={p}
+                        onClick={() => setProfile(p)}
+                        className={`text-left text-sm px-3 py-2.5 rounded-lg border transition-colors ${
+                          profile === p
+                            ? "border-[#0EA5E9] bg-[#0EA5E9]/8 text-[#0F172A] font-semibold"
+                            : "border-neutral-200 hover:border-neutral-400 text-neutral-700"
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              )}
 
-              <div className="px-5 py-4 border-t border-neutral-100 bg-white flex gap-2">
-                <input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter" && input.trim()) ask(input.trim()); }}
-                  placeholder="Ask anything about products, lead times, or specs…"
-                  className="flex-1 px-4 py-2.5 rounded-full border border-neutral-200 focus:border-[#0EA5E9] focus:outline-none text-sm"
-                />
-                <button
-                  onClick={() => input.trim() && ask(input.trim())}
-                  className="w-10 h-10 rounded-full bg-[#0F172A] hover:bg-[#0EA5E9] transition-colors text-white flex items-center justify-center"
+                {/* Dimensions */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5 block">Length (m)</label>
+                    <input
+                      type="number"
+                      value={length}
+                      min={1}
+                      max={500}
+                      onChange={(e) => setLength(Math.max(1, Number(e.target.value)))}
+                      className="w-full text-sm px-3 py-2.5 rounded-md border border-neutral-200 focus:border-[#0EA5E9] focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5 block">Width (m)</label>
+                    <input
+                      type="number"
+                      value={width}
+                      min={1}
+                      max={500}
+                      onChange={(e) => setWidth(Math.max(1, Number(e.target.value)))}
+                      className="w-full text-sm px-3 py-2.5 rounded-md border border-neutral-200 focus:border-[#0EA5E9] focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Output */}
+                <div className="rounded-xl bg-gradient-to-br from-neutral-50 to-white border border-neutral-200 p-5">
+                  <div className="text-[10px] uppercase tracking-[0.16em] text-neutral-500 font-bold mb-3">Bill of materials · {result.area} sqm</div>
+                  <div className="grid grid-cols-2 gap-y-2.5 gap-x-4 text-sm">
+                    <div className="text-neutral-600 flex items-center gap-2"><Layers size={14} /> Sheets needed</div>
+                    <div className="font-semibold text-right">{result.sheets.toLocaleString()} pcs</div>
+
+                    <div className="text-neutral-600 flex items-center gap-2"><Wrench size={14} /> Fasteners</div>
+                    <div className="font-semibold text-right">{result.fasteners.toLocaleString()} pcs</div>
+
+                    <div className="text-neutral-600">Total weight</div>
+                    <div className="font-semibold text-right">{result.totalWeight.toLocaleString()} kg</div>
+
+                    <div className="text-neutral-600">Sheets subtotal</div>
+                    <div className="font-semibold text-right">₱{result.sheetSubtotal.toLocaleString()}</div>
+
+                    <div className="text-neutral-600">Fasteners subtotal</div>
+                    <div className="font-semibold text-right">₱{result.fastenerCost.toLocaleString()}</div>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-neutral-200 flex justify-between items-baseline">
+                    <span className="text-xs uppercase tracking-wider text-neutral-500 font-semibold">Indicative total</span>
+                    <span className="text-2xl font-bold text-[#0F172A]" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
+                      ₱{result.total.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+
+                <a
+                  href="mailto:inquiries@unimaxsteel.com?subject=Material%20list%20from%20calculator"
+                  className="block text-center bg-[#0F172A] hover:bg-[#0EA5E9] text-white py-3 rounded-full text-sm font-semibold transition-colors"
                 >
-                  <Send size={15} />
-                </button>
+                  Email this BoM to sales →
+                </a>
+                <p className="text-[10px] text-neutral-400 leading-relaxed text-center">
+                  Indicative only · Final quote depends on profile, gauge, accessories, and site logistics.
+                </p>
               </div>
             </div>
           </div>
