@@ -11,6 +11,8 @@ import {
   Search,
   Calendar,
   CheckCircle2,
+  Check,
+  Minus,
   Layers,
   Globe,
 } from "lucide-react";
@@ -81,6 +83,47 @@ const timeline = [
   { week: "Day 6", phase: "QA & polish", deliverable: "Cross-browser checks, performance pass, SEO basics in place" },
   { week: "Day 7", phase: "Launch 🚀", deliverable: "Site goes live, you get the keys, walkthrough call done" },
   { week: "Week 2+", phase: "AI features layered in", deliverable: "Optional — Quote Estimator, Chatbot, etc. added live (Growth & Premium tiers)" },
+];
+
+type Cell = boolean | string;
+type CompareRow = { label: string; foundation: Cell; growth: Cell; premium: Cell };
+type CompareGroup = { group: string; rows: CompareRow[] };
+
+const comparison: CompareGroup[] = [
+  {
+    group: "What's included",
+    rows: [
+      { label: "Live in 7 days", foundation: true, growth: true, premium: true },
+      { label: "Pages included", foundation: "4–5", growth: "Up to 8", premium: "Up to 10" },
+      { label: "Mobile-first responsive", foundation: true, growth: true, premium: true },
+      { label: "Branded with your logo & colours", foundation: true, growth: true, premium: true },
+      { label: "Contact form to your inbox", foundation: true, growth: true, premium: true },
+    ],
+  },
+  {
+    group: "Design depth",
+    rows: [
+      { label: "Custom design polish", foundation: false, growth: "Light", premium: "Full design system" },
+      { label: "Project case study template", foundation: false, growth: false, premium: true },
+      { label: "Bilingual EN/Tagalog scaffolding", foundation: false, growth: false, premium: true },
+    ],
+  },
+  {
+    group: "Smart layers",
+    rows: [
+      { label: "AI integrations", foundation: false, growth: "1 feature", premium: "2 features" },
+      { label: "CMS for self-editing", foundation: false, growth: true, premium: true },
+    ],
+  },
+  {
+    group: "Tech & support",
+    rows: [
+      { label: "Vercel hosting (year 1 included)", foundation: true, growth: true, premium: true },
+      { label: "Basic SEO + Google Analytics", foundation: true, growth: true, premium: true },
+      { label: "Revision rounds", foundation: "1", growth: "2", premium: "2" },
+      { label: "Post-launch support", foundation: false, growth: "14 days", premium: "30 days" },
+    ],
+  },
 ];
 
 const tiers = [
@@ -351,6 +394,99 @@ export default function ProposalPage() {
               </a>
             </div>
           ))}
+        </div>
+
+        {/* Side-by-side comparison */}
+        <div className="mt-16">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#EA580C] mb-3">Compare side-by-side</div>
+          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
+            Everything in each tier, at a glance.
+          </h3>
+
+          <div className="overflow-x-auto -mx-6 px-6 sm:mx-0 sm:px-0">
+            <div className="min-w-[640px] rounded-2xl border border-neutral-200 overflow-hidden">
+              {/* Header row */}
+              <div className="grid grid-cols-[minmax(180px,1.4fr)_1fr_1fr_1fr] bg-neutral-50 border-b border-neutral-200">
+                <div className="p-4 sm:p-5"></div>
+                {[
+                  { name: "Foundation", price: "₱8,000", highlight: false },
+                  { name: "Growth", price: "₱10,000", highlight: true },
+                  { name: "Premium", price: "₱12,000", highlight: false },
+                ].map((t) => (
+                  <div
+                    key={t.name}
+                    className={`p-4 sm:p-5 text-center border-l border-neutral-200 ${t.highlight ? "bg-[#EA580C]/8 relative" : ""}`}
+                  >
+                    {t.highlight && (
+                      <div className="absolute -top-px left-1/2 -translate-x-1/2 -translate-y-full mt-px bg-[#EA580C] text-white text-[9px] font-bold uppercase tracking-[0.18em] px-2.5 py-0.5 rounded-b">
+                        Recommended
+                      </div>
+                    )}
+                    <div className={`text-sm font-bold ${t.highlight ? "text-[#EA580C]" : "text-neutral-900"}`} style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>{t.name}</div>
+                    <div className={`text-xs mt-1 ${t.highlight ? "text-[#9A3412]" : "text-neutral-500"}`}>{t.price}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Body */}
+              {comparison.map((group, gi) => (
+                <div key={group.group}>
+                  <div className={`grid grid-cols-[minmax(180px,1.4fr)_1fr_1fr_1fr] ${gi === 0 ? "" : "border-t border-neutral-200"}`}>
+                    <div className="col-span-4 px-5 py-2.5 bg-neutral-50/70 text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-500">
+                      {group.group}
+                    </div>
+                  </div>
+                  {group.rows.map((row, ri) => (
+                    <div
+                      key={row.label}
+                      className={`grid grid-cols-[minmax(180px,1.4fr)_1fr_1fr_1fr] ${ri !== 0 || gi !== 0 ? "border-t border-neutral-100" : ""}`}
+                    >
+                      <div className="px-5 py-3.5 text-sm text-neutral-700">{row.label}</div>
+                      {(["foundation", "growth", "premium"] as const).map((tier) => {
+                        const cell = row[tier];
+                        const isGrowth = tier === "growth";
+                        return (
+                          <div
+                            key={tier}
+                            className={`px-4 py-3.5 text-center border-l border-neutral-100 ${isGrowth ? "bg-[#EA580C]/5" : ""}`}
+                          >
+                            {cell === true ? (
+                              <Check size={18} className="mx-auto text-[#EA580C]" strokeWidth={3} />
+                            ) : cell === false ? (
+                              <Minus size={16} className="mx-auto text-neutral-300" />
+                            ) : (
+                              <span className={`text-xs sm:text-sm font-semibold ${isGrowth ? "text-[#9A3412]" : "text-neutral-900"}`}>{cell}</span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              ))}
+
+              {/* CTA row */}
+              <div className="grid grid-cols-[minmax(180px,1.4fr)_1fr_1fr_1fr] border-t border-neutral-200 bg-neutral-50">
+                <div className="p-4 sm:p-5 text-xs font-semibold uppercase tracking-wider text-neutral-500 self-center">Get started</div>
+                {[
+                  { name: "Foundation", highlight: false },
+                  { name: "Growth", highlight: true },
+                  { name: "Premium", highlight: false },
+                ].map((t) => (
+                  <div key={t.name} className={`p-3 sm:p-4 border-l border-neutral-200 ${t.highlight ? "bg-[#EA580C]/8" : ""}`}>
+                    <a
+                      href={`mailto:hello@fishbonecreative.com?subject=Unimax%20Steel%20%E2%80%94%20${encodeURIComponent(t.name)}%20tier`}
+                      className={`block text-center text-xs font-bold uppercase tracking-wider px-3 py-2.5 rounded-lg transition-colors ${
+                        t.highlight ? "bg-[#EA580C] hover:bg-[#C2410C] text-white" : "border border-neutral-300 hover:border-neutral-900 text-neutral-700 hover:text-neutral-900"
+                      }`}
+                    >
+                      Choose {t.name}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="mt-10 text-sm text-neutral-500 leading-relaxed max-w-3xl">
