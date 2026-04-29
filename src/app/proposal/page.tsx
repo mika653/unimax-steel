@@ -87,14 +87,14 @@ const tiers = [
   {
     name: "Foundation",
     tagline: "Live in 7 days · clean rebuild",
-    price: "₱10,000",
+    price: "₱8,000",
     range: "7 days · one-time",
     bullets: [
-      "Mobile-first redesign (5–7 pages)",
+      "Mobile-first site (4–5 pages: Home, About, Products, Contact)",
       "Branded layout using your existing logo + colours",
       "Contact form connected to your inbox",
       "Basic SEO + Google Analytics",
-      "Hosted on Vercel (fast, free, reliable)",
+      "Vercel hosting (fast, free, reliable)",
       "1 round of revisions",
     ],
     note: "No AI included — available as Phase 2 add-on.",
@@ -104,16 +104,15 @@ const tiers = [
   {
     name: "Growth",
     tagline: "Recommended · 7 days + 1 AI feature",
-    price: "₱25,000",
+    price: "₱10,000",
     range: "7 days + AI in week 2",
     bullets: [
       "Everything in Foundation, plus:",
-      "Custom design system (typography, colours, components)",
-      "Up to 10 pages",
+      "Up to 8 pages with light custom polish",
       "1 AI integration of your choice — Quote Estimator OR 24/7 Chatbot",
       "Simple CMS so your team can edit content",
-      "2 rounds of revisions",
       "14-day post-launch support",
+      "2 rounds of revisions",
     ],
     note: null,
     accent: "#EA580C",
@@ -121,17 +120,16 @@ const tiers = [
   },
   {
     name: "Premium",
-    tagline: "7 days + 3 AI features + 30-day support",
-    price: "₱50,000",
+    tagline: "Most complete · 7 days + 2 AI features",
+    price: "₱12,000",
     range: "7 days + 2 weeks polish",
     bullets: [
       "Everything in Growth, plus:",
-      "3 AI integrations — Quote Estimator + Chatbot + Product Advisor",
-      "Bilingual support (English + Tagalog)",
-      "Photo art-direction guide for your team's shoot",
-      "Project case study template + 3 builds populated",
+      "Up to 10 pages with custom design system",
+      "2 AI integrations of your choice (from Estimator, Chatbot, Product Advisor)",
+      "Bilingual scaffolding (English + Tagalog ready)",
+      "Project case study template",
       "30-day post-launch support",
-      "Quarterly check-in for the first year",
     ],
     note: null,
     accent: "#0F172A",
@@ -173,8 +171,8 @@ export default function ProposalPage() {
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-4 pt-8 border-t border-white/10 text-sm">
             <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Delivery</div><div className="font-semibold text-white">Live in 7 days</div></div>
-            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Investment</div><div className="font-semibold text-white">From ₱10,000</div></div>
-            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">AI features</div><div className="font-semibold text-white">Up to 3</div></div>
+            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Investment</div><div className="font-semibold text-white">From ₱8,000</div></div>
+            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">AI features</div><div className="font-semibold text-white">Up to 2</div></div>
             <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Validity</div><div className="font-semibold text-white">90 days</div></div>
           </div>
         </div>
@@ -233,7 +231,7 @@ export default function ProposalPage() {
             Seven AI features designed for the steel buyer.
           </h2>
           <p className="text-neutral-600 text-lg max-w-3xl mb-10 leading-relaxed">
-            Each one solves a real friction point in the buying journey. <strong className="text-neutral-900">Growth</strong> ships with 1 feature; <strong className="text-neutral-900">Premium</strong> ships with 3. Extra features can be layered in any time after launch as we learn what your buyers respond to.
+            Each one solves a real friction point in the buying journey. <strong className="text-neutral-900">Growth</strong> ships with 1 feature; <strong className="text-neutral-900">Premium</strong> ships with 2. Extra features can be layered in any time after launch as we learn what your buyers respond to.
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             {aiFeatures.map((f) => (
@@ -356,7 +354,7 @@ export default function ProposalPage() {
         </div>
 
         <div className="mt-10 text-sm text-neutral-500 leading-relaxed max-w-3xl">
-          <span className="font-semibold text-neutral-700">Notes:</span> Prices are one-time and exclude VAT. AI feature API usage (OpenAI / Claude) billed at-cost — typically ₱500–₱2,000/month depending on traffic. Domain &amp; hosting included for the first year. Optional retainer (₱5K–₱15K / month) covers content updates, performance tuning, and minor changes.
+          <span className="font-semibold text-neutral-700">Notes:</span> Prices are one-time and exclude VAT. AI feature API usage (OpenAI / Claude) billed at-cost — typically ₱300–₱1,500/month depending on traffic. Domain &amp; hosting included for the first year. Optional retainer (₱2K–₱5K / month) covers content updates, performance tuning, and minor changes.
         </div>
       </section>
 
