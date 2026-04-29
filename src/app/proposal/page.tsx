@@ -74,63 +74,66 @@ const scope = [
 ];
 
 const timeline = [
-  { week: "Weeks 1–2", phase: "Discovery & Strategy", deliverable: "Sitemap, content plan, design direction approved" },
-  { week: "Weeks 3–5", phase: "Design", deliverable: "Full design system + key page mockups signed off" },
-  { week: "Weeks 6–9", phase: "Build", deliverable: "Pages built, AI features integrated, CMS configured" },
-  { week: "Week 10", phase: "Content & QA", deliverable: "Copy in place, mobile + cross-browser QA, SEO checks" },
-  { week: "Week 11", phase: "Launch", deliverable: "Soft launch, training session, go-live" },
-  { week: "Weeks 12+", phase: "Ongoing", deliverable: "Performance review, content support, optional retainer" },
+  { week: "Day 0", phase: "Discovery & onboarding", deliverable: "Brand assets, content, and product info gathered (1–3 days, before the 7-day clock starts)" },
+  { week: "Day 1", phase: "Kickoff & direction", deliverable: "Sitemap confirmed, design direction locked, content outline approved" },
+  { week: "Days 2–3", phase: "Design", deliverable: "Homepage + product page designs ready for sign-off" },
+  { week: "Days 4–5", phase: "Build", deliverable: "Site built, content placed, mobile + tablet checked" },
+  { week: "Day 6", phase: "QA & polish", deliverable: "Cross-browser checks, performance pass, SEO basics in place" },
+  { week: "Day 7", phase: "Launch 🚀", deliverable: "Site goes live, you get the keys, walkthrough call done" },
+  { week: "Week 2+", phase: "AI features layered in", deliverable: "Optional — Quote Estimator, Chatbot, etc. added live (Growth & Premium tiers)" },
 ];
 
 const tiers = [
   {
     name: "Foundation",
-    tagline: "Site refresh + 1 AI feature",
-    price: "₱350,000",
-    range: "8 weeks",
+    tagline: "Live in 7 days · clean rebuild",
+    price: "₱10,000",
+    range: "7 days · one-time",
     bullets: [
-      "Full website redesign (8–10 pages)",
-      "Mobile-first responsive build",
-      "1 AI integration of choice (e.g., Quote Estimator)",
-      "CMS + 3 case studies",
+      "Mobile-first redesign (5–7 pages)",
+      "Branded layout using your existing logo + colours",
+      "Contact form connected to your inbox",
       "Basic SEO + Google Analytics",
-      "1 round of revisions per stage",
+      "Hosted on Vercel (fast, free, reliable)",
+      "1 round of revisions",
     ],
+    note: "No AI included — available as Phase 2 add-on.",
     accent: "#94A3B8",
     highlight: false,
   },
   {
     name: "Growth",
-    tagline: "Recommended — site + 3 AI features",
-    price: "₱650,000",
-    range: "10–11 weeks",
+    tagline: "Recommended · 7 days + 1 AI feature",
+    price: "₱25,000",
+    range: "7 days + AI in week 2",
     bullets: [
       "Everything in Foundation, plus:",
-      "Professional product + project photo shoot",
-      "3 AI integrations (Estimator, Product Advisor, Chatbot)",
-      "Bilingual support (English + Tagalog)",
-      "5 case studies + Resources section seed",
-      "Schema markup, advanced SEO",
-      "2 rounds of revisions per stage",
-      "30-day post-launch optimisation",
+      "Custom design system (typography, colours, components)",
+      "Up to 10 pages",
+      "1 AI integration of your choice — Quote Estimator OR 24/7 Chatbot",
+      "Simple CMS so your team can edit content",
+      "2 rounds of revisions",
+      "14-day post-launch support",
     ],
+    note: null,
     accent: "#EA580C",
     highlight: true,
   },
   {
     name: "Premium",
-    tagline: "Full transformation + 5 AI features",
-    price: "₱1,100,000",
-    range: "12–14 weeks",
+    tagline: "7 days + 3 AI features + 30-day support",
+    price: "₱50,000",
+    range: "7 days + 2 weeks polish",
     bullets: [
       "Everything in Growth, plus:",
-      "5 AI integrations including Project Visualiser",
-      "Auto-translated Tagalog / Cebuano / Ilocano pages",
-      "Advanced project case study system with filters",
-      "Custom buyer dashboard for repeat customers",
-      "Priority post-launch support (90 days)",
-      "Quarterly performance review + content sprints",
+      "3 AI integrations — Quote Estimator + Chatbot + Product Advisor",
+      "Bilingual support (English + Tagalog)",
+      "Photo art-direction guide for your team's shoot",
+      "Project case study template + 3 builds populated",
+      "30-day post-launch support",
+      "Quarterly check-in for the first year",
     ],
+    note: null,
     accent: "#0F172A",
     highlight: false,
   },
@@ -169,10 +172,35 @@ export default function ProposalPage() {
             Built around what buyers actually need: faster quotes, clearer answers, and a steel supplier that feels modern, trusted, and a step ahead of the market.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-4 pt-8 border-t border-white/10 text-sm">
-            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Engagement</div><div className="font-semibold text-white">8 to 14 weeks</div></div>
-            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Investment</div><div className="font-semibold text-white">From ₱350K</div></div>
-            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">AI features</div><div className="font-semibold text-white">Up to 7</div></div>
+            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Delivery</div><div className="font-semibold text-white">Live in 7 days</div></div>
+            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Investment</div><div className="font-semibold text-white">From ₱10,000</div></div>
+            <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">AI features</div><div className="font-semibold text-white">Up to 3</div></div>
             <div><div className="text-white/50 text-xs uppercase tracking-wider mb-1">Validity</div><div className="font-semibold text-white">90 days</div></div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7-Day Promise */}
+      <section className="border-b border-neutral-200 bg-[#EA580C] text-white">
+        <div className="max-w-5xl mx-auto px-6 py-14 sm:py-16 grid md:grid-cols-12 gap-8 items-center">
+          <div className="md:col-span-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-white text-[11px] font-bold uppercase tracking-[0.18em] mb-4">
+              The Fishbone Promise
+            </div>
+            <div className="text-7xl sm:text-8xl font-bold tracking-tight leading-[0.9]" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
+              7 days.
+            </div>
+            <div className="text-2xl font-semibold text-white/90 mt-3" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
+              From kickoff to live.
+            </div>
+          </div>
+          <div className="md:col-span-7 text-white/90 text-lg leading-relaxed space-y-4">
+            <p>
+              Once we&rsquo;ve gathered your assets and aligned on direction, your new site goes live in <strong className="text-white">seven calendar days</strong>. No drag, no &ldquo;final-final&rdquo; loop, no surprise extensions.
+            </p>
+            <p className="text-white/75 text-base">
+              Discovery and onboarding (1–3 days of brand assets, content, and product info gathering) happen <em>before</em> the 7-day clock starts, so the build phase stays focused. AI features in Growth and Premium tiers are layered in <strong className="text-white">after launch</strong> — the site is already live and earning while we add the smart layers on top.
+            </p>
           </div>
         </div>
       </section>
@@ -205,7 +233,7 @@ export default function ProposalPage() {
             Seven AI features designed for the steel buyer.
           </h2>
           <p className="text-neutral-600 text-lg max-w-3xl mb-10 leading-relaxed">
-            Each one solves a real friction point in the buying journey. You don&rsquo;t need all seven on day one — we recommend starting with three (depending on tier) and layering in more as we learn what your buyers respond to.
+            Each one solves a real friction point in the buying journey. <strong className="text-neutral-900">Growth</strong> ships with 1 feature; <strong className="text-neutral-900">Premium</strong> ships with 3. Extra features can be layered in any time after launch as we learn what your buyers respond to.
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             {aiFeatures.map((f) => (
@@ -249,7 +277,10 @@ export default function ProposalPage() {
       <section className="bg-neutral-50 border-y border-neutral-200">
         <div className="max-w-5xl mx-auto px-6 py-16 sm:py-20">
           <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#EA580C] mb-3">04 &mdash; Timeline</div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-10" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>From kickoff to launch</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>Seven days, start to finish</h2>
+          <p className="text-neutral-600 text-lg max-w-3xl mb-10 leading-relaxed">
+            Discovery happens before the clock starts. Once we kick off, the build is laser-focused on shipping by Day 7.
+          </p>
           <div className="space-y-3">
             {timeline.map((t, i) => (
               <div key={t.phase} className="bg-white rounded-xl border border-neutral-200 p-5 sm:p-6 flex flex-col sm:flex-row gap-4 sm:items-center">
@@ -274,7 +305,7 @@ export default function ProposalPage() {
         <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#EA580C] mb-3">05 &mdash; Investment</div>
         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>Three ways to start</h2>
         <p className="text-neutral-600 text-lg max-w-3xl mb-10 leading-relaxed">
-          Pick the tier that matches your appetite. All include the design system, mobile-first build, and CMS — they differ on number of AI features, content depth, and post-launch support.
+          Every tier ships in 7 days. They differ on design depth, page count, AI features, and how long we stick around after launch. Start small or go all-in — you can always layer up later.
         </p>
         <div className="grid lg:grid-cols-3 gap-5">
           {tiers.map((t) => (
@@ -295,9 +326,9 @@ export default function ProposalPage() {
               </div>
               <div className="mb-5 pb-5 border-b border-neutral-200">
                 <div className="text-3xl font-bold text-neutral-900 mb-1" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>{t.price}</div>
-                <div className="text-xs text-neutral-500 uppercase tracking-wider">{t.range} &middot; one-time</div>
+                <div className="text-xs text-neutral-500 uppercase tracking-wider">{t.range}</div>
               </div>
-              <ul className="space-y-2.5 flex-1 mb-6">
+              <ul className="space-y-2.5 flex-1 mb-4">
                 {t.bullets.map((b) => (
                   <li key={b} className="flex gap-2.5 text-sm text-neutral-700 leading-relaxed">
                     <CheckCircle2 size={16} className="text-[#EA580C] shrink-0 mt-0.5" />
@@ -305,8 +336,13 @@ export default function ProposalPage() {
                   </li>
                 ))}
               </ul>
+              {t.note && (
+                <div className="mb-5 px-3 py-2.5 rounded-lg bg-neutral-50 border border-neutral-200 text-xs text-neutral-600 italic leading-relaxed">
+                  {t.note}
+                </div>
+              )}
               <a
-                href="mailto:hello@fishbonecreative.com?subject=Unimax%20Steel%20%E2%80%94%20{tier}%20tier"
+                href={`mailto:hello@fishbonecreative.com?subject=Unimax%20Steel%20%E2%80%94%20${encodeURIComponent(t.name)}%20tier`}
                 className={`inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold transition-colors ${
                   t.highlight
                     ? "bg-[#EA580C] hover:bg-[#C2410C] text-white"
@@ -320,7 +356,7 @@ export default function ProposalPage() {
         </div>
 
         <div className="mt-10 text-sm text-neutral-500 leading-relaxed max-w-3xl">
-          <span className="font-semibold text-neutral-700">Notes:</span> Prices are indicative and exclude VAT. AI feature usage costs (OpenAI / Claude API) billed at-cost. Photo shoot logistics quoted separately depending on locations. Optional ongoing retainer (₱45K–₱90K / month) covers content, performance optimisation, and AI feature tuning.
+          <span className="font-semibold text-neutral-700">Notes:</span> Prices are one-time and exclude VAT. AI feature API usage (OpenAI / Claude) billed at-cost — typically ₱500–₱2,000/month depending on traffic. Domain &amp; hosting included for the first year. Optional retainer (₱5K–₱15K / month) covers content updates, performance tuning, and minor changes.
         </div>
       </section>
 
