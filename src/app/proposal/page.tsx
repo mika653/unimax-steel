@@ -11,6 +11,11 @@ import {
   Minus,
   Layers,
   Globe,
+  Megaphone,
+  TrendingUp,
+  PenTool,
+  Palette,
+  Package,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -55,6 +60,37 @@ const timeline = [
   { week: "Day 6", phase: "QA & polish", deliverable: "Cross-browser checks, performance pass, SEO basics in place" },
   { week: "Day 7", phase: "Launch 🚀", deliverable: "Site goes live, you get the keys, walkthrough call done" },
   { week: "Week 2+", phase: "AI features layered in", deliverable: "Optional — Quote Estimator, Material Calculator, or Project Visualiser added live (Growth & Premium tiers)" },
+];
+
+const addOns = [
+  {
+    icon: <Megaphone size={20} />,
+    name: "Social Media Management",
+    price: "₱3,000",
+    unit: "/month",
+    body: "Content calendar, post creation, and scheduling for Facebook and Instagram. Includes 8 branded posts per month with engagement monitoring — perfect for surfacing new project completions and product arrivals.",
+  },
+  {
+    icon: <TrendingUp size={20} />,
+    name: "AI-Powered SEO",
+    price: "₱2,500",
+    unit: "/month",
+    body: "Keyword research, meta tag optimisation, schema markup, and monthly ranking reports for terms like \"steel roofing supplier Philippines\". Keeps your site climbing Google results.",
+  },
+  {
+    icon: <PenTool size={20} />,
+    name: "Blog & Content Writing",
+    price: "₱2,000",
+    unit: "/month",
+    body: "2 SEO-optimised articles per month — buying guides (\"Hi Rib vs Corrugated\"), project case studies, or industry news. Drives organic traffic and builds authority.",
+  },
+  {
+    icon: <Palette size={20} />,
+    name: "Social Media Design",
+    price: "₱350",
+    unit: "/design",
+    body: "Design-only service for individual social posts — branded graphics for Facebook, Instagram, or promotions. No scheduling or management included. Perfect if your team handles posting in-house.",
+  },
 ];
 
 type Cell = boolean | string;
@@ -496,8 +532,58 @@ export default function ProposalPage() {
 
       </section>
 
+      {/* Add-ons */}
+      <section className="bg-neutral-50 border-y border-neutral-200">
+        <div className="max-w-5xl mx-auto px-6 py-16 sm:py-20">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#EA580C] mb-3">06 &mdash; Optional Add-ons</div>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
+            Layer in extra firepower.
+          </h2>
+          <p className="text-neutral-600 text-lg max-w-3xl mb-3 leading-relaxed">
+            Available exclusively to <strong className="text-neutral-900">Growth</strong> and <strong className="text-neutral-900">Premium</strong> subscribers. Billed monthly alongside the retainer; cancellable with 15 days written notice.
+          </p>
+          <p className="text-sm text-neutral-500 italic mb-10">Mix and match — pick any combination below.</p>
+
+          <div className="grid sm:grid-cols-2 gap-4 mb-8">
+            {addOns.map((a) => (
+              <article key={a.name} className="bg-white rounded-2xl border border-neutral-200 hover:border-[#EA580C]/40 transition-colors p-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="shrink-0 w-11 h-11 rounded-lg bg-[#EA580C]/10 text-[#EA580C] flex items-center justify-center">{a.icon}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline justify-between gap-3 mb-1">
+                      <h3 className="font-bold text-neutral-900 text-lg leading-tight" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>{a.name}</h3>
+                      <div className="shrink-0 text-right">
+                        <span className="text-xl font-bold text-[#EA580C]" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>{a.price}</span>
+                        <span className="text-xs font-normal text-[#9A3412]">{a.unit}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-sm text-neutral-700 leading-relaxed pl-15">{a.body}</p>
+              </article>
+            ))}
+          </div>
+
+          {/* Bundle callout */}
+          <div className="bg-gradient-to-br from-[#EA580C] to-[#9A3412] text-white rounded-2xl p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center gap-5">
+            <div className="shrink-0 w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center">
+              <Package size={22} />
+            </div>
+            <div className="flex-1">
+              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/70 mb-1.5">Bundle deal</div>
+              <div className="font-bold text-lg sm:text-xl mb-1" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
+                Bundle the first three monthly services for ₱6,500/month.
+              </div>
+              <p className="text-sm text-white/80 leading-relaxed">
+                That&rsquo;s Social Media Management + AI-Powered SEO + Blog Writing — together you save ₱1,000/month versus picking them individually. Add-ons begin after launch.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Concepts CTA */}
-      <section className="max-w-5xl mx-auto px-6 pb-20">
+      <section className="max-w-5xl mx-auto px-6 pt-16 pb-20">
         <div className="bg-neutral-900 text-white rounded-2xl p-8 sm:p-12">
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4" style={{ fontFamily: "var(--font-space-grotesk, sans-serif)" }}>
             See three directions, side-by-side.
